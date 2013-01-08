@@ -1,0 +1,30 @@
+{
+    "name"            : "level-session"
+  , "description"     : "A very fast and persistent web server session manager backed by LevelDB"
+  , "version"         : "0.0.0"
+  , "homepage"        : "https://github.com/rvagg/node-level-session"
+  , "authors"         : [
+        "Rod Vagg @rvagg <rod@vagg.org> (https://github.com/rvagg)"
+    ]
+  , "keywords"        : [ "session", "sessions", "leveldb" ]
+  , "main"            : "./lib/index.js"
+  , "repository"      : {
+        "type"            : "git"
+      , "url"             : "https://github.com/rvagg/node-level-session.git"
+    }
+  , "dependencies" : {
+        "generic-session" : "~0.0.2"
+      , "levelup"         : "~0.4.4"
+    }
+  , "devDependencies" : {
+        "tap"         : "*"
+      , "request"     : "~2.12.0"
+      , "cookies"     : "~0.3.6"
+      , "rimraf"      : "~2.1.1"
+      , "async"       : "~0.1.22"
+    }
+  , "scripts": {
+        "test"            : "tap ./tests/*-test.js"
+    }
+  , "license"             : "MIT"
+}
