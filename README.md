@@ -13,7 +13,7 @@ Level Session uses [LevelUP](https://github.com/rvagg/node-levelup) for LevelDB 
 ```js
 // server.js
 var http           = require('http')
-  , levelSession   = require('../')('/tmp/level_session_example.db')
+  , levelSession   = require('level-session')('/tmp/level_session_example.db')
   , port           = 8080
 
 http.createServer(function (req, res) {
