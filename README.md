@@ -1,6 +1,10 @@
 # Level Session [![Build Status](https://secure.travis-ci.org/rvagg/node-level-session.png)](http://travis-ci.org/rvagg/node-level-session)
 
+![LevelDB Logo](https://twimg0-a.akamaihd.net/profile_images/3360574989/92fc472928b444980408147e5e5db2fa_bigger.png)
+
 A framework-agnostic, LevelDB-backed session manager for Node.js web servers. Provides very fast session data storage that persists across server restarts.
+
+**Compatible with Connect / Express middleware.**
 
 Backed by [Generic Session](https://github.com/rvagg/node-generic-session), the flexible session manager, Level Session gives you simple and speedy entry-level session management that allows you to scale when ready by switching the storage back-end of Generic Session to a more appropriate solution such as Redis.
 
@@ -73,7 +77,10 @@ This example is available in the *examples/* directory.
 ## API
 
 ### levelSession(options | location)
+
 Will create a new `LevelSession` instance, including an open LevelDB instance. You must provide a location for the LevelDB store, either as a `String` or on an `options` object with the property `'location'`.
+
+The returned object can be used as a stand-alone filter or as a Connect / Express middleware.
 
 Any additional options you provide on an `options` object will be passed on to [Generic Session](https://github.com/rvagg/node-generic-session), these options include:
 
@@ -86,9 +93,14 @@ Any additional options you provide on an `options` object will be passed on to [
 
 A `LevelSession` instance can be used as a filter / middleware in a Node.js server, invoke it as a function with the arguments: HTTP server `request`, HTTP server `response` and a `next` callback function to be called when LevelSession is finished. You will get a `session` object attached both `request` and `response`.
 
+#### close()
+
+Each `LevelSession` instance has a `close()` method that can be used to finalise and close all resources.
+
 -------------------------
 
 ### levelSession.LevelStore(options | location)
+
 Use this to create a `LevelStore` instance that can be used directly with [Generic Session](https://github.com/rvagg/node-generic-session) as the `store` property. This provides the flexibility to invoke the session manager in the most appropriate way for your application.
 
 ## Session API

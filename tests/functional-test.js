@@ -25,14 +25,15 @@ var server
         , cb
       )
     }
+  , filter
 
 /* These tests are largely copied from isaacs/RedSess */
 
 tap.test('setup', function (t) {
 
-  var filter  = levelSession('/tmp/level_store_test.db')
+  filter  = levelSession('/tmp/level_store_test.db')
 
-    , handle  = function (req, res) {
+  var handle  = function (req, res) {
         console.error('SERVER', req.url)
         req.cookies = res.cookies = new Cookies(req, res)
 
@@ -312,6 +313,7 @@ tap.test('re-establish session', function (t) {
 
 tap.test('teardown', function (t) {
   t.plan(1)
+  filter.close()
   server.close(function () {
     t.pass('http shutdown')
   })

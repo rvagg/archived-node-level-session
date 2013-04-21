@@ -3,10 +3,12 @@ const LevelStore     = require('./level-store')
 
 var filter = function (options) {
       var store = LevelStore(options)
-      return function (req, res, next) {
-        req.session = res.session = genericSession(req, res, store, options)
-        next()
-      }
+        , f = function (req, res, next) {
+            req.session = res.session = genericSession(req, res, store, options)
+            next()
+          }
+      f.close = store.close.bind(store)
+      return f
     }
 
 module.exports            = filter
