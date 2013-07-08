@@ -1,11 +1,23 @@
 const genericSession = require('generic-session')
-    , levelup        = require('level')
     , ttl            = require('level-ttl')
     , sublevel       = require('level-sublevel')
     , xtend          = require('xtend')
 
     , SEP_CHAR       = '|' // session key is Base64 and has a prefix 'session:' so | avoids dups
     , LUP_OPTIONS    = { keyEncoding: 'utf8', valueEncoding: 'utf8' }
+
+
+function loadLevel() {
+  try {
+    return require('level')
+  } catch (e) {
+    try {
+      return require('levelup')
+    } catch (e) {
+      throw new Error('You must install either `level` or `levelup`')
+    }
+  }
+}
 
 function dbkey (id, key) {
   return id + SEP_CHAR + key
@@ -21,7 +33,7 @@ function LevelStore (options) {
   if (!options || (typeof options.location != 'string' && typeof options.db != 'object'))
     throw new Error('You must provide a `location` option for your LevelDB store or a LevelUP `db` instance')
 
-  this._db = options.db || levelup(options.location, {
+  this._db = options.db || loadLevel()(options.location, {
       errorIfExists   : false
     , createIfMissing : true
     , keyEncoding     : 'utf8'
