@@ -1,4 +1,4 @@
-const tap            = require('tap')
+const test           = require('tap').test
     , rimraf         = require('rimraf')
     , async          = require('async')
     , levelSession   = require('../')
@@ -8,7 +8,7 @@ const tap            = require('tap')
 const req   = { headers: {}, connection: { encrypted: false } }
     , res   = { getHeader: function () {}, set: true, setHeader: function () {} }
 
-tap.test('basic operations', function (t) {
+test('basic operations', function (t) {
   var store   = levelSession.LevelStore('/tmp/level_store_test.db')
     , session = genericSession(req, res, store)
 
@@ -31,9 +31,7 @@ tap.test('basic operations', function (t) {
             t.same(value, undefined, 'value should be undefined')
 
             store.close(function () {
-              rimraf('/tmp/level_store_test.db', function () {
-                t.end()
-              })
+              rimraf('/tmp/level_store_test.db', t.end.bind(t))
             })
           })
         })
@@ -42,7 +40,7 @@ tap.test('basic operations', function (t) {
   })
 })
 
-tap.test('set many, getAll(), delAll()', function (t) {
+test('set many, getAll(), delAll()', function (t) {
   var store   = levelSession.LevelStore('/tmp/level_store_test.db')
     , session = genericSession(req, res, store)
 
@@ -94,9 +92,7 @@ tap.test('set many, getAll(), delAll()', function (t) {
 
         queue.drain = function () {
           store.close(function () {
-            rimraf('/tmp/level_store_test.db', function () {
-              t.end()
-            })
+            rimraf('/tmp/level_store_test.db', t.end.bind(t))
           })
         }
       }
