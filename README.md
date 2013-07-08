@@ -8,9 +8,9 @@ A framework-agnostic, LevelDB-backed session manager for Node.js web servers. Pr
 
 Backed by [Generic Session](https://github.com/rvagg/node-generic-session), the flexible session manager, Level Session gives you simple and speedy entry-level session management that allows you to scale when ready by switching the storage back-end of Generic Session to a more appropriate solution such as Redis.
 
-A LevelDB store can only be accessed by one process at a time so Level Session is not ideal for multi-process deployments.
+A LevelDB store can only be accessed by one process at a time so Level Session is not ideal for multi-process deployments unless you're passing in a [multilevel](https://github.com/juliangruber/multilevel) instance as your `'db'`.
 
-Level Session uses [LevelUP](https://github.com/rvagg/node-levelup) for LevelDB access in Node.js.
+Level Session uses [LevelUP](https://github.com/rvagg/node-levelup) for LevelDB access in Node.js, you must either install **levelup** or **level** from npm for Level Session to work; it is not loaded as a dependency.
 
 ## Example
 
