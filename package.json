@@ -1,7 +1,7 @@
 {
     "name"            : "level-session"
   , "description"     : "A very fast and persistent web server session manager backed by LevelDB"
-  , "version"         : "0.2.0"
+  , "version"         : "0.2.1"
   , "homepage"        : "https://github.com/rvagg/node-level-session"
   , "authors"         : [
         "Rod Vagg @rvagg <rod@vagg.org> (https://github.com/rvagg)"
@@ -15,7 +15,7 @@
   , "dependencies" : {
         "generic-session" : "~0.0.2"
       , "level-ttl"       : "~0.3.0"
-      , "xtend"           : "~2.0.6"
+      , "xtend"           : "~2.1.1"
       , "level-sublevel"  : "~4.7.1"
     }
   , "devDependencies" : {
