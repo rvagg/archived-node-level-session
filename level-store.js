@@ -129,8 +129,10 @@ LevelStore.prototype._forEach = function (id, fn, callback) {
       var lkey = data.key.split(SEP_CHAR)
       if (lkey[0] == id)
         fn(lkey[1], data.value)
-      else if (lkey.length != 2 || lkey[0] > id)
+      else if (lkey.length != 2 || lkey[0] > id) {
         rs.destroy()
+        callback()
+      }
     })
     .on('end', callback)
 }
