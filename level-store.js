@@ -1,9 +1,8 @@
 const genericSession = require('generic-session')
     , ttl            = require('level-ttl')
-    , sublevel       = require('level-sublevel')
     , xtend          = require('xtend')
 
-    , SEP_CHAR       = '|' // session key is Base64 and has a prefix 'session:' so | avoids dups
+    , SEP_CHAR       = '\xff' // session key is Base64 and has a prefix 'session:' so | avoids dups
     , LUP_OPTIONS    = { keyEncoding: 'utf8', valueEncoding: 'utf8' }
 
 
@@ -20,7 +19,7 @@ function loadLevel() {
 }
 
 function dbkey (id, key) {
-  return id + SEP_CHAR + key
+  return SEP_CHAR + id + SEP_CHAR + (key || '')
 }
 
 function LevelStore (options) {
@@ -40,9 +39,7 @@ function LevelStore (options) {
     , valueEncoding   : 'utf8'
   })
 
-  this._db = sublevel(this._db)
   this._db = ttl(this._db)
-  this._sessionDb = this._db.sublevel('session')
 }
 
 LevelStore.prototype.get = function (id, key, expire, callback) {
@@ -79,7 +76,7 @@ LevelStore.prototype.getAll = function (id, expire, callback) {
 
 LevelStore.prototype.set = function (id, key, value, expire, callback) {
   this.extend(id, expire, function () {
-    this._sessionDb.put(
+    this._db.put(
         dbkey(id, key)
       , JSON.stringify(value)
       , xtend(LUP_OPTIONS, { ttl: expire })
@@ -94,7 +91,7 @@ LevelStore.prototype.extend = function (id, expire, callback) {
 
 LevelStore.prototype.del = function (id, key, expire, callback) {
   this.extend(id, expire, function () {
-    this._sessionDb.del(
+    this._db.del(
         dbkey(id, key)
       , LUP_OPTIONS
       , function (err) {
@@ -113,7 +110,7 @@ LevelStore.prototype.delAll = function (id, callback) {
         batch.push({ type: 'del', key: dbkey(id, key) })
       }
     , function () {
-        this._sessionDb.batch(batch, LUP_OPTIONS, callback)
+        this._db.batch(batch, LUP_OPTIONS, callback)
       }.bind(this)
   )
 }
@@ -123,16 +120,17 @@ LevelStore.prototype.close = function (callback) {
 }
 
 LevelStore.prototype._forEach = function (id, fn, callback) {
-  var rs = this._sessionDb.readStream(xtend(LUP_OPTIONS, { start: id }))
+  var rs  = this._db.createReadStream(xtend(LUP_OPTIONS, {
+      start : dbkey(id)
+    , end   : dbkey(id) + '\xff'
+  }))
 
   rs.on('data', function (data) {
       var lkey = data.key.split(SEP_CHAR)
-      if (lkey[0] == id)
-        fn(lkey[1], data.value)
-      else if (lkey.length != 2 || lkey[0] > id)
-        rs.destroy()
+      if (lkey.length == 3)
+        fn(lkey[2], data.value)
     })
-    .on('end', callback)
+    .on('close', callback)
 }
 
 module.exports = LevelStore

@@ -78,7 +78,7 @@ This example is available in the *examples/* directory.
 
 ### levelSession(options | location)
 
-Will create a new `LevelSession` instance, including an open LevelDB instance. You must provide a location for the LevelDB store, either as a `String` or on an `options` object with the property `'location'`. Alternatively you can provide an existing (open), LevelUP instance with the `'db'` property. Level Session can coexist with other uses of the same LevelUP by using [level-sublevel](https://github.com/dominictarr/level-sublevel) to operate in a *"session"* namespace.
+Will create a new `LevelSession` instance, including an open LevelDB instance. You must provide a location for the LevelDB store, either as a `String` or on an `options` object with the property `'location'`. Alternatively you can provide an existing (open), LevelUP instance with the `'db'` property. Level Session can coexist with other uses of the same LevelUP by using the same technique as [level-sublevel](https://github.com/dominictarr/level-sublevel) to operate in a *"session"* namespace.
 
 The returned object can be used as a stand-alone filter or as a Connect / Express middleware.
 

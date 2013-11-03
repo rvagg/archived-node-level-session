@@ -1,6 +1,5 @@
 const path           = require('path')
     , http           = require('http')
-    , spawn          = require('child_process').spawn
     , tap            = require('tap')
     , Cookies        = require('cookies')
     , request        = require('request')
@@ -15,7 +14,7 @@ var server
   , sessionId
   , id
 
-  , req      = function(url, cb) {
+  , req = function(url, cb) {
       request(
           {
               url: 'http://localhost:' + port + url
@@ -101,6 +100,7 @@ tap.test('setup', function (t) {
 
           case '/destroy':
             return res.session.destroy(function (er) {
+              console.error('DESTROYED FROM SERVER')
               if (er) throw er
               res.send(JSON.stringify(
                 { ok: true, destroyed: true }))
@@ -312,8 +312,10 @@ tap.test('re-establish session', function (t) {
 })
 
 tap.test('teardown', function (t) {
-  t.plan(1)
-  filter.close()
+  t.plan(2)
+  filter.close(function () {
+    t.pass('filter shutdown')
+  })
   server.close(function () {
     t.pass('http shutdown')
   })
