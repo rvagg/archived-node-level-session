@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "generic-session": "~0.0.2",
-    "level-ttl": "~0.4.1",
-    "xtend": "~2.1.1",
-    "level-sublevel": "~5.1.1"
+    "level-sublevel": "~5.1.1",
+    "level-ttl": "^2.1.1",
+    "xtend": "~2.1.1"
   },
   "devDependencies": {
     "async": "^0.9.0",
