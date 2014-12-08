@@ -1,33 +1,38 @@
 {
-    "name"            : "level-session"
-  , "description"     : "A very fast and persistent web server session manager backed by LevelDB"
-  , "version"         : "0.3.1"
-  , "homepage"        : "https://github.com/rvagg/node-level-session"
-  , "authors"         : [
-        "Rod Vagg @rvagg <rod@vagg.org> (https://github.com/rvagg)"
-    ]
-  , "keywords"        : [ "session", "sessions", "leveldb", "levelup" ]
-  , "main"            : "./level-session.js"
-  , "repository"      : {
-        "type"            : "git"
-      , "url"             : "https://github.com/rvagg/node-level-session.git"
-    }
-  , "dependencies" : {
-        "generic-session" : "~0.0.2"
-      , "level-ttl"       : "~0.4.1"
-      , "xtend"           : "~2.1.1"
-      , "level-sublevel"  : "~5.1.1"
-    }
-  , "devDependencies" : {
-        "tap"             : "*"
-      , "level"           : "*"
-      , "request"         : "*"
-      , "cookies"         : "*"
-      , "rimraf"          : "*"
-      , "async"           : "*"
-    }
-  , "scripts": {
-        "test"            : "tap ./tests/*-test.js"
-    }
-  , "license"             : "MIT"
+  "name": "level-session",
+  "description": "A very fast and persistent web server session manager backed by LevelDB",
+  "version": "0.3.1",
+  "homepage": "https://github.com/rvagg/node-level-session",
+  "authors": [
+    "Rod Vagg @rvagg <rod@vagg.org> (https://github.com/rvagg)"
+  ],
+  "keywords": [
+    "session",
+    "sessions",
+    "leveldb",
+    "levelup"
+  ],
+  "main": "./level-session.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rvagg/node-level-session.git"
+  },
+  "dependencies": {
+    "generic-session": "~0.0.2",
+    "level-sublevel": "~5.1.1",
+    "level-ttl": "^2.1.1",
+    "xtend": "~2.1.1"
+  },
+  "devDependencies": {
+    "async": "^0.9.0",
+    "cookies": "^0.5.0",
+    "level": "^0.18.0",
+    "request": "^2.49.0",
+    "rimraf": "^2.2.8",
+    "tap": "^0.4.13"
+  },
+  "scripts": {
+    "test": "tap ./tests/*-test.js"
+  },
+  "license": "MIT"
 }

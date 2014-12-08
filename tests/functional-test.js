@@ -133,9 +133,9 @@ tap.test('establish session', function (t) {
     t.ok(data.id, 'has id')
     id = data.id
 
-    var c = jar.cookies[0]
+    var c = jar.getCookies('http://localhost')[0];
     t.ok(c)
-    t.equal(c.name, 's', 'cookie name')
+    t.equal(c.key, 's', 'cookie name')
     t.like(c.value, /^.{40}$/, 'cookie value')
     t.ok(c.httpOnly)
     t.type(c.expires, Date)
@@ -162,9 +162,9 @@ tap.test('/set/obj', function (t) {
     t.deepEqual(data, { id: id, ok: true, obj: obj })
     t.equal(res.statusCode, 200)
 
-    var c = jar.cookies[0]
+    var c = jar.getCookies('http://localhost')[0];
     t.ok(c)
-    t.equal(c.name, 's', 'cookie name')
+    t.equal(c.key, 's', 'cookie name')
     t.equal(c.value, sessionId, 'cookie value')
     t.ok(c.httpOnly)
     t.type(c.expires, Date)
@@ -262,9 +262,9 @@ tap.test('/del/all', function (t) {
       t.deepEqual(data, { id: id, ok: true, data: {} })
 
       // note that deleting all the *data* doesn't change the session.
-      var c = jar.cookies[0]
+      var c = jar.getCookies('http://localhost')[0];
       t.ok(c)
-      t.equal(c.name, 's', 'cookie name')
+      t.equal(c.key, 's', 'cookie name')
       t.equal(c.value, sessionId, 'cookie value')
       t.ok(c.httpOnly)
       t.type(c.expires, Date)
@@ -278,13 +278,8 @@ tap.test('/del/all', function (t) {
 // now delete our session and start over
 tap.test('/destroy', function (t) {
   req('/destroy', function () {
-    var c = jar.cookies[0]
-    t.ok(c)
-    t.equal(c.name, 's', 'cookie name')
-    t.equal(c.value, '', 'destroyed cookie value')
-    t.ok(c.httpOnly)
-    t.type(c.expires, Date)
-    t.equal(c.expires.getTime(), 0)
+    var c = jar.getCookies('http://localhost')[0];
+    t.ok(!c)
 
     t.end()
   })
@@ -300,9 +295,9 @@ tap.test('re-establish session', function (t) {
     t.ok(data.id, 'has id')
     id = data.id
 
-    var c = jar.cookies[0]
+    var c = jar.getCookies('http://localhost')[0];
     t.ok(c)
-    t.equal(c.name, 's', 'cookie name')
+    t.equal(c.key, 's', 'cookie name')
     t.like(c.value, /^.{40}$/, 'cookie value')
     t.ok(c.httpOnly)
     t.type(c.expires, Date)
