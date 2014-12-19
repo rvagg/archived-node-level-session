@@ -39,7 +39,7 @@ function LevelStore (options) {
     , valueEncoding   : 'utf8'
   })
 
-  this._db = ttl(this._db)
+  this._db = ttl(this._db, options.ttl)
 }
 
 LevelStore.prototype.get = function (id, key, expire, callback) {
