@@ -1,5 +1,4 @@
-const genericSession = require('generic-session')
-    , ttl            = require('level-ttl')
+const ttl            = require('level-ttl')
     , xtend          = require('xtend')
 
     , SEP_CHAR       = '\xff' // session key is Base64 and has a prefix 'session:' so | avoids dups
