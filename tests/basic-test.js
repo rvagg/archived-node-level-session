@@ -6,7 +6,7 @@ const test           = require('tap').test
 
 // stubs
 const req   = { headers: {}, connection: { encrypted: false } }
-    , res   = { getHeader: function () {}, set: true, setHeader: function () {} }
+    , res   = { getHeader: function () {}, setHeader: function () {} }
 
 test('basic operations', function (t) {
   var store   = levelSession.LevelStore('/tmp/level_store_test.db')

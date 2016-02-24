@@ -18,17 +18,17 @@
     "url": "https://github.com/rvagg/node-level-session.git"
   },
   "dependencies": {
-    "generic-session": "~0.0.2",
-    "level-ttl": "^2.1.1",
-    "xtend": "~2.1.1"
+    "generic-session": "~0.1.2",
+    "level-ttl": "~3.1.0",
+    "xtend": "~4.0.1"
   },
   "devDependencies": {
-    "async": "^0.9.0",
-    "cookies": "^0.5.0",
-    "level": "^0.18.0",
-    "request": "^2.49.0",
-    "rimraf": "^2.2.8",
-    "tap": "^0.4.13"
+    "async": "~1.5.2",
+    "cookies": "~0.5.1",
+    "level": "~1.4.0",
+    "request": "~2.69.0",
+    "rimraf": "~2.5.2",
+    "tap": "~5.7.0"
   },
   "scripts": {
     "test": "tap ./tests/*-test.js"
