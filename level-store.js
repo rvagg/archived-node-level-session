@@ -1,9 +1,8 @@
-const genericSession = require('generic-session')
-    , ttl            = require('level-ttl')
-    , xtend          = require('xtend')
+const ttl         = require('level-ttl')
+    , xtend       = require('xtend')
 
-    , SEP_CHAR       = '\xff' // session key is Base64 and has a prefix 'session:' so | avoids dups
-    , LUP_OPTIONS    = { keyEncoding: 'utf8', valueEncoding: 'utf8' }
+    , SEP_CHAR    = '\xff' // session key is Base64 and has a prefix 'session:' so | avoids dups
+    , LUP_OPTIONS = { keyEncoding: 'utf8', valueEncoding: 'utf8' }
 
 
 function loadLevel() {
