@@ -1,7 +1,7 @@
 {
   "name": "level-session",
   "description": "A very fast and persistent web server session manager backed by LevelDB",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "https://github.com/rvagg/node-level-session",
   "authors": [
     "Rod Vagg @rvagg <rod@vagg.org> (https://github.com/rvagg)"
